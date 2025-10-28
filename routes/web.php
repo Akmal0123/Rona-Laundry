@@ -27,5 +27,17 @@ Route::get('/test1', function () {
     return Inertia::render('test1');
 });
 
+Route::get('/masuk', function () {
+    return Inertia::render('Register');
+});
+
+Route::get('/loh', function () {
+    return Inertia::render('Login');
+});
+
+Route::get('/order', function () {
+    return Inertia::render('Order');
+});
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
