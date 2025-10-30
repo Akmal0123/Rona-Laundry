@@ -47,5 +47,13 @@ Route::get('/user-profile', function () {
     return Inertia::render('Profile');
 });
 
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+    Route::get('users', [\App\Http\Controllers\UserController::class, 'index']);
+    Route::post('users', [\App\Http\Controllers\UserController::class, 'store']);
+    Route::get('users/{id}', [\App\Http\Controllers\UserController::class, 'show']);
+    Route::put('users/{id}', [\App\Http\Controllers\UserController::class, 'update']);
+    Route::delete('users/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
+});
+
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
