@@ -12,93 +12,63 @@
   
         <!-- 🔹 Toggle -->
         <div class="flex justify-center mb-6 mt-8">
-          <button
-            class="bg-blue-500 text-white font-semibold px-5 py-2 rounded-l-md"
-          >
-            SIGNUP
-          </button>
-          <button
-            class="bg-blue-200 text-gray-600 font-semibold px-5 py-2 rounded-r-md"
-            @click="goToLogin"
-          >
-            LOGIN
-          </button>
+          <button class="bg-blue-500 text-white font-semibold px-5 py-2 rounded-l-md">SIGNUP</button>
+          <button class="bg-blue-200 text-gray-600 font-semibold px-5 py-2 rounded-r-md" @click="goToLogin">LOGIN</button>
         </div>
   
         <!-- 🔹 Form -->
         <form @submit.prevent="handleSubmit">
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-800 mb-1">Email Address</label>
-              <input
-                v-model="form.email"
-                type="email"
-                placeholder="Masukkan password"
-                required
-                class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800"
-                autocomplete="off"
-                />
+              <label class="block text-sm font-bold text-gray-800 mb-1">Full Name</label>
+              <input v-model="form.name" type="text" placeholder="Masukkan nama" required class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800" autocomplete="name" />
             </div>
-  
+
             <div>
-              <label class="block text-sm font-bold text-gray-800 mb-1">Username</label>
-              <input
-                v-model="form.username"
-                type="text"
-                placeholder="Masukkan username"
-                required
-                class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800"
-                autocomplete="off"
-                />
+              <label class="block text-sm font-bold text-gray-800 mb-1">Email Address</label>
+              <input v-model="form.email" type="email" placeholder="Masukkan email" required class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800" autocomplete="email" />
             </div>
   
             <div>
               <label class="block text-sm font-bold text-gray-800 mb-1">Password</label>
-              <input
-                v-model="form.password"
-                type="password"
-                placeholder="Masukkan password"
-                required
-                class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800"
-                autocomplete="off"
-                />
+              <input v-model="form.password" type="password" placeholder="Masukkan password" required class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800" autocomplete="new-password" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-bold text-gray-800 mb-1">Konfirmasi Password</label>
+              <input v-model="form.password_confirmation" type="password" placeholder="Konfirmasi password" required class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800" autocomplete="new-password" />
             </div>
   
             <div class="flex items-center">
-              <input id="remember" type="checkbox" v-model="form.remember" class="mr-2" />
+              <input id="remember" type="checkbox" v-model="remember" class="mr-2" />
               <label for="remember" class="block text-sm font-bold text-gray-800 mb-1">Ingat saya</label>
             </div>
           </div>
   
-          <button
-            type="submit"
-            class="w-full mt-6 bg-pink-400 text-white font-bold py-2 rounded-md hover:bg-pink-500 transition"
-          >
-            SIGNUP
-          </button>
+          <button type="submit" class="w-full mt-6 bg-pink-400 text-white font-bold py-2 rounded-md hover:bg-pink-500 transition">SIGNUP</button>
         </form>
       </div>
     </div>
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { reactive, ref } from 'vue'
   import { router } from '@inertiajs/vue3'
   
-  const form = ref({
+  const form = reactive({
+    name: '',
     email: '',
-    username: '',
     password: '',
-    remember: false,
+    password_confirmation: '',
   })
+  const remember = ref(false)
   
   function handleSubmit() {
-    alert('Akun berhasil dibuat! Silakan login dulu ya 😊')
-    router.visit('/loh') // arahkan ke halaman login
+    router.post('/register', form)
   }
   
   function goToLogin() {
-    router.visit('/loh')
+    router.visit('/login')
   }
   </script>
   

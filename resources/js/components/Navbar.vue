@@ -61,7 +61,7 @@ function goProfile() {
   router.visit('/user-profile')
 }
 function login() {
-  router.visit('/login')
+  router.visit('/loh')
 }
 function register() {
   router.visit('/masuk')

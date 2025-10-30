@@ -11,7 +11,7 @@ class User extends Authenticatable
     use HasFactory;
 
     protected $fillable = [
-        'nama_user',
+        'name',
         'email',
         'password',
         'no_whatsapp',
@@ -20,6 +20,12 @@ class User extends Authenticatable
     ];
 
     protected $hidden = ['password', 'remember_token'];
+
+    // Provide a computed property so existing views using nama_user still work
+    public function getNamaUserAttribute()
+    {
+        return $this->attributes['name'] ?? null;
+    }
 
     public function pesanan()
     {

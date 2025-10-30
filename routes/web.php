@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\User as AppUserModel;
+use App\Models\Pesanan as AppPesananModel;
+use App\Models\LayananLaundry as AppLayananModel;
+use App\Http\Controllers\Auth\AuthenticatedSessionController as WebLoginController;
+use App\Http\Controllers\Auth\RegisteredUserController as WebRegisterController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return Inertia::render('LandingPage');
@@ -9,7 +15,7 @@ Route::get('/', function () {
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('Dashboard');
 
 Route::get('/test', function () {
     return Inertia::render('test');
@@ -34,6 +40,9 @@ Route::get('/masuk', function () {
 Route::get('/loh', function () {
     return Inertia::render('Login');
 });
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 Route::get('/order', function () {
     return Inertia::render('Order');
@@ -70,6 +79,19 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::get('users/{id}', [\App\Http\Controllers\UserController::class, 'show']);
     Route::put('users/{id}', [\App\Http\Controllers\UserController::class, 'update']);
     Route::delete('users/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
+});
+
+Route::middleware(['auth', 'verified'])->get('/admin/dashboard-data', function () {
+    return response()->json([
+        'stats' => [
+            'totalProducts' => AppLayananModel::count(),
+            'totalUsers' => AppUserModel::count(),
+            'totalOrders' => AppPesananModel::count(),
+            'pendingVerification' => AppPesananModel::where('status_order', 'pending_verification')->count(),
+        ],
+        'recentOrders' => AppPesananModel::with('user')->orderByDesc('created_at')->limit(5)->get(),
+        'recentUsers' => AppUserModel::orderByDesc('created_at')->limit(5)->get(),
+    ]);
 });
 
 require __DIR__ . '/settings.php';

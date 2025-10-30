@@ -29,14 +29,14 @@
         <form @submit.prevent="handleLogin">
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-bold text-gray-800 mb-1">Username</label>
+              <label class="block text-sm font-bold text-gray-800 mb-1">Email</label>
               <input
-                v-model="form.username"
-                type="text"
-                placeholder="Masukkan username"
+                v-model="form.email"
+                type="email"
+                placeholder="Masukkan email"
                 required
                 class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800"
-                autocomplete="off"
+                autocomplete="email"
                 />
             </div>
   
@@ -48,7 +48,7 @@
                 placeholder="Masukkan password"
                 required
                 class="w-full border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300 text-gray-800"
-                autocomplete="off"
+                autocomplete="current-password"
                 />
             </div>
   
@@ -77,18 +77,17 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { reactive } from 'vue'
   import { router } from '@inertiajs/vue3'
   
-  const form = ref({
-    username: '',
+  const form = reactive({
+    email: '',
     password: '',
     remember: false,
   })
   
   function handleLogin() {
-    alert('Login berhasil! Selamat datang 👋')
-    router.visit('/dashboard')
+    router.post('/login', form)
   }
   
   function goToRegister() {

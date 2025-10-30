@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::create([
-            'nama_user'   => 'Super Admin',
+            'name'        => 'Super Admin',
             'email'       => 'admin@rona.com',
             'password'    => bcrypt('admin123'),
             'no_whatsapp' => '085700000001',

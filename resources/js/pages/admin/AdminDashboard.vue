@@ -96,7 +96,7 @@
 
 <script setup>
 import Sidebar from '@/components/Sidebar.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import ApexCharts from 'vue3-apexcharts'
 
 // 🔹 Registrasi komponen ApexCharts agar bisa digunakan
@@ -111,72 +111,35 @@ const menus = ref([
   { text: 'Payment Verification', icon: 'payments', link: '/admin/payments' }
 ])
 
-// 🔹 Statistik
-const stats = ref([
-  { title: 'Total Products', value: 12, icon: 'shopping_bag' },
-  { title: 'Total Users', value: 32, icon: 'group' },
-  { title: 'Total Orders', value: 18, icon: 'assignment' },
-  { title: 'Pending Verification', value: 2, icon: 'hourglass_empty' }
-])
+// Live stats and lists
+const stats = ref({ totalProducts: 0, totalUsers: 0, totalOrders: 0, pendingVerification: 0 })
+const recentOrders = ref([])
+const recentUsers = ref([])
 
-// 🔹 Data Chart (Pemasukan Bulanan)
-const chartSeries = ref([
-  {
-    name: 'Pemasukan (Rp)',
-    data: [3200000, 2800000, 3500000, 4000000, 4500000, 5000000, 4800000, 5200000, 4700000, 4900000, 5300000, 6000000]
-  }
-])
-
+// Chart config (keep static or wire later)
+const chartSeries = ref([])
 const chartOptions = ref({
-  chart: {
-    type: 'bar',
-    toolbar: { show: false },
-    animations: { enabled: true, easing: 'easeinout', speed: 800 }
-  },
+  chart: { type: 'bar', toolbar: { show: false }, animations: { enabled: true, easing: 'easeinout', speed: 800 } },
   colors: ['#ec4899'],
-  plotOptions: {
-    bar: {
-      borderRadius: 6,
-      columnWidth: '45%',
-      distributed: false
-    }
-  },
+  plotOptions: { bar: { borderRadius: 6, columnWidth: '45%', distributed: false } },
   dataLabels: { enabled: false },
-  xaxis: {
-    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    labels: { style: { colors: '#6b7280' } }
-  },
-  yaxis: {
-    labels: {
-      style: { colors: '#6b7280' },
-      formatter: val => `Rp ${val.toLocaleString()}`
-    }
-  },
-  tooltip: {
-    y: { formatter: val => `Rp ${val.toLocaleString()}` }
-  },
-  grid: {
-    borderColor: '#f3f4f6'
-  },
-  title: {
-    text: 'Grafik Pemasukan Bulanan',
-    align: 'center',
-    style: { fontSize: '16px', color: '#1f2937', fontWeight: 'bold' }
-  }
+  xaxis: { categories: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], labels: { style: { colors: '#6b7280' } } },
+  yaxis: { labels: { style: { colors: '#6b7280' }, formatter: val => `Rp ${val.toLocaleString()}` } },
+  tooltip: { y: { formatter: val => `Rp ${val.toLocaleString()}` } },
+  grid: { borderColor: '#f3f4f6' },
+  title: { text: 'Grafik Pemasukan Bulanan', align: 'center', style: { fontSize: '16px', color: '#1f2937', fontWeight: 'bold' } }
 })
 
-// 🔹 Data Recent Orders
-const recentOrders = ref([
-  { id: 1, name: 'Akmal', service: 'Cuci Kering', status: 'Selesai' },
-  { id: 2, name: 'Siti', service: 'Setrika', status: 'Proses' },
-  { id: 3, name: 'Roni', service: 'Cuci Karpet', status: 'Selesai' }
-])
+async function loadDashboardData() {
+  const res = await fetch('/admin/dashboard-data')
+  const data = await res.json()
+  stats.value = data.stats
+  recentOrders.value = data.recentOrders
+  recentUsers.value = data.recentUsers
+  // chartSeries.value = data.chartSeries || []
+}
 
-// 🔹 Data Recent Users
-const recentUsers = ref([
-  { id: 1, name: 'Admin', email: 'admin@rona.com' },
-  { id: 2, name: 'Test User', email: 'user@rona.com' }
-])
+onMounted(loadDashboardData)
 </script>
 
 <style scoped>
