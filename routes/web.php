@@ -39,9 +39,21 @@ Route::get('/order', function () {
     return Inertia::render('Order');
 });
 
-Route::get('/admin-dashboard', function () {
-    return Inertia::render('AdminDashboard');
-});
+Route::get('/admin/dashboard', function () {
+    return Inertia::render('admin/AdminDashboard');
+})->middleware(['auth', 'verified']);
+Route::get('/admin/users-page', function () {
+    return Inertia::render('admin/AdminUsers');
+})->middleware(['auth', 'verified']);
+Route::get('/admin/products-page', function () {
+    return Inertia::render('admin/AdminProducts');
+})->middleware(['auth', 'verified']);
+Route::get('/admin/orders-page', function () {
+    return Inertia::render('admin/AdminOrders');
+})->middleware(['auth', 'verified']);
+Route::get('/admin/payments-page', function () {
+    return Inertia::render('admin/AdminPaymentVerification');
+})->middleware(['auth', 'verified']);
 
 Route::get('/user-profile', function () {
     return Inertia::render('Profile');
