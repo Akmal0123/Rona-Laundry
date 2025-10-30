@@ -15,15 +15,16 @@ import { LoaderCircle } from 'lucide-vue-next';
 defineProps<{
     status?: string;
     canResetPassword: boolean;
+    isAdminLogin?: boolean;
 }>();
 </script>
 
 <template>
     <AuthBase
-        title="Log in to your account"
-        description="Enter your email and password below to log in"
+        :title="isAdminLogin ? 'Admin Log In' : 'Log in to your account'"
+        :description="isAdminLogin ? 'Login as admin with your admin credentials' : 'Enter your email and password below to log in'"
     >
-        <Head title="Log in" />
+        <Head :title="isAdminLogin ? 'Admin Login' : 'Log in'" />
 
         <div
             v-if="status"
@@ -100,7 +101,7 @@ defineProps<{
                 </Button>
             </div>
 
-            <div class="text-center text-sm text-muted-foreground">
+            <div class="text-center text-sm text-muted-foreground" v-if="!isAdminLogin">
                 Don't have an account?
                 <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
             </div>

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import Navbar from '../components/Navbar.vue'
 import Hero from '../components/Hero.vue'

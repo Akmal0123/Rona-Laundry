@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('test1');
-})->name('test1');
+    return Inertia::render('LandingPage');
+})->name('LandingPage');
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
@@ -54,6 +54,11 @@ Route::get('/admin/orders-page', function () {
 Route::get('/admin/payments-page', function () {
     return Inertia::render('admin/AdminPaymentVerification');
 })->middleware(['auth', 'verified']);
+Route::get('/admin/login', function () {
+    return Inertia::render('auth/Login', [
+        'isAdminLogin' => true
+    ]);
+})->name('admin.login');
 
 Route::get('/user-profile', function () {
     return Inertia::render('Profile');
