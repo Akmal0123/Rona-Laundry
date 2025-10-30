@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('home');
+    return Inertia::render('test1');
+})->name('test1');
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
@@ -43,5 +43,5 @@ Route::get('/admin-dashboard', function () {
     return Inertia::render('AdminDashboard');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
