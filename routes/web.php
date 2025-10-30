@@ -43,5 +43,9 @@ Route::get('/admin-dashboard', function () {
     return Inertia::render('AdminDashboard');
 });
 
+Route::get('/user-profile', function () {
+    return Inertia::render('Profile');
+});
+
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -1,7 +1,7 @@
 <template>
   <nav class="fixed top-0 left-0 w-full bg-pink-400 text-white shadow-md z-50">
     <div class="w-full flex justify-between items-center px-2 py-3">
-      
+
       <!-- 🔹 Logo -->
       <div class="bg-white p-2 rounded-xl shadow-md flex items-center ml-2">
         <img src="/images/logo.png" alt="Logo" class="h-10 w-auto" />
@@ -35,20 +35,20 @@
         </li>
       </ul>
 
-      <!-- 🔹 Ikon Akun (pakai gambar profile.png) -->
-      <div class="p-1 rounded-full bg-white shadow-md cursor-pointer mr-2 hover:scale-105 transition">
-        <img
-          src="/images/profile.png"
-          alt="Profile"
-          class="h-8 w-8 rounded-full object-cover"
-        />
+      <!-- 🔹 Ikon Akun -->
+      <div
+        class="flex items-center justify-center bg-white rounded-full border-[3px] border-pink-400 p-1.5 mr-2 shadow-md hover:scale-105 hover:shadow-lg transition"
+      >
+        <span class="material-icons text-black text-3xl">
+          person
+        </span>
       </div>
+
     </div>
   </nav>
 </template>
 
 <script setup>
-// Tidak butuh script khusus untuk navbar statis ini
 </script>
 
 <style scoped>

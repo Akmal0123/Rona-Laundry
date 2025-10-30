@@ -1,12 +1,12 @@
 <template>
   <footer class="bg-pink-200 text-gray-900 py-10">
     <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-8">
-      
-      <div>
-        <h2 class="text-xl font-semibold mb-3">RonaLaundry</h2>
-      </div>
 
-      
+      <div class="flex items-center space-x-3">
+        <div class="bg-white p-2 rounded-xl shadow-md flex items-center">
+          <img src="/images/logo.png" alt="RonaLaundry Logo" class="h-10 w-auto" />
+        </div>
+      </div>
       <div>
         <h3 class="text-lg font-semibold mb-3">Menu</h3>
         <ul class="space-y-2">
@@ -16,7 +16,7 @@
         </ul>
       </div>
 
-      
+
       <div>
         <h3 class="text-lg font-semibold mb-3">Kontak</h3>
         <ul class="space-y-2">
